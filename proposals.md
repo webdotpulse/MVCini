@@ -26,9 +26,6 @@ This document outlines several proposals for improving the MVCini framework. Eac
 **Description:** The project currently uses `database.sql` and an interactive installer. A migration system would allow version controlling database schema changes in PHP classes (`up()` and `down()` methods), making it easier to evolve the database over time.
 **Prompt:** `Build a database migration system. Create a CLI script that can run pending migrations. Migrations should be PHP classes with up() and down() methods to modify the database schema, keeping track of executed migrations in a database table.`
 
-## 7. Pagination Support
-**Description:** Displaying large sets of data requires pagination. Adding pagination logic to the Model and a helper for the View would make it trivial to paginate database results.
-**Prompt:** `Add pagination support to the framework. Extend the Model class to include a paginate($perPage) method that returns a structured array with the paginated results and pagination metadata (current page, total pages). Create a View helper to render pagination links.`
 
 ## 8. Command Line Interface (CLI) Tool
 **Description:** A CLI tool (similar to Artisan or Symfony Console) to quickly generate boilerplate code for Controllers, Models, and Views, improving developer productivity.
