@@ -1,8 +1,15 @@
 <?php
 session_start();
 
+// Check for installer
+$configFile = __DIR__ . '/../config/config.php';
+if (!file_exists($configFile) && file_exists(__DIR__ . '/install.php')) {
+    header('Location: /install.php');
+    exit;
+}
+
 // Load config
-$config = require_once __DIR__ . '/../config/config.php';
+$config = require_once $configFile;
 
 // Composer Autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
