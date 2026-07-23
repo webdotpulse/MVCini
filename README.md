@@ -12,7 +12,8 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
   - CSRF Token generation and verification.
   - Encrypted cookies using OpenSSL (AES-256-CBC).
   - Session hijacking protection (validates IP and User-Agent fingerprint).
-- **Internationalization (i18n):** Support for multiple languages (e.g., EN, ES).
+- **Internationalization (i18n):** Support for multiple languages (EN, ES, FR, NL) and an Admin UI for managing translations.
+- **Modern UI:** Tailwind CSS is used on the demo home page for rapid UI prototyping.
 - **Autoloading:** Native PSR-4 autoloader for core files and integration with Composer for third-party libraries.
 - **Authentication System:** Boilerplate views and controllers for Login, Registration, Password Reset.
 

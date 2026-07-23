@@ -18,7 +18,7 @@ class Router
         $parts = explode('/', trim($url, '/'));
 
         // Default controller and method
-        $controllerName = 'ItemController'; // Default to Item demo
+        $controllerName = 'HomeController'; // Default to Home
         $methodName = 'index';
         $params = [];
 

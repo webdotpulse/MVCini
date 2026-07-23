@@ -49,9 +49,9 @@ class ContactController extends Controller
             $captcha = (int)($_POST['captcha'] ?? 0);
 
             if (!isset($_SESSION['captcha_result']) || $captcha !== $_SESSION['captcha_result']) {
-                $error = 'Incorrect captcha.';
+                $error = \App\Core\I18n::get('incorrect_captcha');
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $error = 'Invalid email address.';
+                $error = \App\Core\I18n::get('invalid_email');
             } else {
                 // Use PHPMailer
                 $mail = new PHPMailer(true);
@@ -71,15 +71,15 @@ class ContactController extends Controller
 
                     // Suppress send for demo if SMTP isn't running, but code is ready
                     @$mail->send();
-                    $success = 'Your message has been sent!';
+                    $success = \App\Core\I18n::get('message_sent');
                 } catch (Exception $e) {
-                    $error = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    $error = \App\Core\I18n::get('message_failed') . $mail->ErrorInfo;
                 }
             }
         }
 
         $this->render('contact/index', [
-            'title' => 'Contact Us',
+            'title' => \App\Core\I18n::get('contact_us'),
             'meta_description' => 'Contact MVCini Framework',
             'error' => $error,
             'success' => $success
