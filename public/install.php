@@ -42,30 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Generate app_secret
         $appSecret = bin2hex(random_bytes(32));
 
-        // Create config file content
-        $configContent = "<?php\n\nreturn [\n" .
-            "    'db' => [\n" .
-            "        'host' => '" . addslashes($host) . "',\n" .
-            "        'dbname' => '" . addslashes($dbname) . "',\n" .
-            "        'charset' => 'utf8mb4',\n" .
-            "        'user' => '" . addslashes($user) . "',\n" .
-            "        'pass' => '" . addslashes($pass) . "',\n" .
-            "    ],\n" .
-            "    'email' => [\n" .
-            "        'host' => '" . addslashes($email_host) . "',\n" .
-            "        'port' => '" . addslashes($email_port) . "',\n" .
-            "        'user' => '" . addslashes($email_user) . "',\n" .
-            "        'pass' => '" . addslashes($email_pass) . "',\n" .
-            "        'from_address' => '" . addslashes($email_from_address) . "',\n" .
-            "        'from_name' => '" . addslashes($email_from_name) . "',\n" .
-            "    ],\n" .
-            "    'default_lang' => 'en',\n" .
-            "    'app_secret' => '" . addslashes($appSecret) . "',\n" .
-            "];\n";
+        // Create .env file content
+        $envContent = "DB_HOST=" . $host . "\n" .
+            "DB_NAME=" . $dbname . "\n" .
+            "DB_USER=" . $user . "\n" .
+            "DB_PASS=" . $pass . "\n\n" .
+            "EMAIL_HOST=" . $email_host . "\n" .
+            "EMAIL_PORT=" . $email_port . "\n" .
+            "EMAIL_USER=" . $email_user . "\n" .
+            "EMAIL_PASS=" . $email_pass . "\n" .
+            "EMAIL_FROM_ADDRESS=" . $email_from_address . "\n" .
+            "EMAIL_FROM_NAME=" . $email_from_name . "\n\n" .
+            "DEFAULT_LANG=en\n" .
+            "APP_SECRET=" . $appSecret . "\n";
 
-        // Write config file
-        $configFile = __DIR__ . '/../config/config.php';
-        file_put_contents($configFile, $configContent);
+        // Write .env file
+        $envFile = __DIR__ . '/../.env';
+        file_put_contents($envFile, $envContent);
 
         // Delete self
         unlink(__FILE__);

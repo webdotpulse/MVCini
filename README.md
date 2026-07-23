@@ -43,15 +43,15 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
    ```
 
 3. **Installation (Recommended):**
-   Start the local development server (or set up Apache/Nginx) and open the application in your browser. If it is your first time running it (i.e. `config/config.php` doesn't exist), you will be redirected to an interactive installer that will automatically configure your database connection, import the default schema, and generate `config.php`.
+   Start the local development server (or set up Apache/Nginx) and open the application in your browser. If it is your first time running it (i.e. `.env` doesn't exist), you will be redirected to an interactive installer that will automatically configure your database connection, import the default schema, and generate the `.env` configuration file.
 
 4. **Manual Installation (Alternative):**
    - Import `database.sql` into your MySQL server to set up the default schema.
-   - Copy the example configuration file to create your own configuration:
+   - Copy the example environment file to create your own configuration:
      ```bash
-     cp config/config.example.php config/config.php
+     cp .env.example .env
      ```
-   - Then edit `config/config.php` and set up your database credentials and other settings like `app_secret` and `default_lang`.
+   - Then edit `.env` and set up your database credentials and other settings like `APP_SECRET` and `DEFAULT_LANG`.
 
 ### Running the Application
 
