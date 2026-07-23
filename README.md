@@ -7,7 +7,7 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
 
 - **MVC Architecture:** Separation of concerns using Models, Views, and Controllers.
 - **Routing & Front Controller:** Clean URLs using a single entry point (`public/index.php`) and a custom Router.
-- **Database Wrapper:** Secure PDO-based database interaction.
+- **Database Wrapper:** Secure PDO-based database interaction featuring a fluent Query Builder for constructing SQL queries programmatically (`where()`, `join()`, `orderBy()`, etc.).
 - **Security Mechanisms:**
   - CSRF Token generation and verification.
   - Encrypted cookies using OpenSSL (AES-256-CBC).

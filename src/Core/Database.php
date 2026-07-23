@@ -28,6 +28,14 @@ class Database
     }
 
     /**
+     * Get a QueryBuilder instance for a specific table
+     */
+    public static function table(string $table): QueryBuilder
+    {
+        return new QueryBuilder($table);
+    }
+
+    /**
      * Get the PDO instance
      */
     public static function getInstance(): PDO

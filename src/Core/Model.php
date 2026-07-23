@@ -9,13 +9,62 @@ abstract class Model
     protected static string $primaryKey = 'id';
 
     /**
+     * Get a QueryBuilder instance for this model
+     */
+    public static function query(): QueryBuilder
+    {
+        return Database::table(static::$table);
+    }
+
+    /**
+     * Start a query with a select clause
+     */
+    public static function select($columns): QueryBuilder
+    {
+        return static::query()->select($columns);
+    }
+
+    /**
+     * Start a query with a where clause
+     */
+    public static function where(string $column, $operator = null, $value = null): QueryBuilder
+    {
+        if (func_num_args() === 2) {
+            return static::query()->where($column, $operator);
+        }
+        return static::query()->where($column, $operator, $value);
+    }
+
+    /**
+     * Start a query with a join clause
+     */
+    public static function join(string $table, string $first, string $operator, string $second, string $type = 'INNER'): QueryBuilder
+    {
+        return static::query()->join($table, $first, $operator, $second, $type);
+    }
+
+    /**
+     * Start a query with an orderBy clause
+     */
+    public static function orderBy(string $column, string $direction = 'ASC'): QueryBuilder
+    {
+        return static::query()->orderBy($column, $direction);
+    }
+
+    /**
+     * Start a query with a limit clause
+     */
+    public static function limit(int $limit, ?int $offset = null): QueryBuilder
+    {
+        return static::query()->limit($limit, $offset);
+    }
+
+    /**
      * Get all records
      */
     public static function all(): array
     {
-        $db = Database::getInstance();
-        $stmt = $db->query("SELECT * FROM " . static::$table);
-        return $stmt->fetchAll();
+        return static::query()->get();
     }
 
     /**
@@ -23,11 +72,7 @@ abstract class Model
      */
     public static function find(int $id): ?array
     {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = ?");
-        $stmt->execute([$id]);
-        $result = $stmt->fetch();
-        return $result ?: null;
+        return static::query()->where(static::$primaryKey, $id)->first();
     }
 
     /**
@@ -35,15 +80,7 @@ abstract class Model
      */
     public static function create(array $data): int
     {
-        $db = Database::getInstance();
-        $columns = implode(', ', array_keys($data));
-        $placeholders = implode(', ', array_fill(0, count($data), '?'));
-
-        $sql = "INSERT INTO " . static::$table . " ($columns) VALUES ($placeholders)";
-        $stmt = $db->prepare($sql);
-        $stmt->execute(array_values($data));
-
-        return (int) $db->lastInsertId();
+        return static::query()->insert($data);
     }
 
     /**
@@ -51,20 +88,7 @@ abstract class Model
      */
     public static function update(int $id, array $data): bool
     {
-        $db = Database::getInstance();
-        $setClauses = [];
-        foreach (array_keys($data) as $key) {
-            $setClauses[] = "$key = ?";
-        }
-        $setString = implode(', ', $setClauses);
-
-        $sql = "UPDATE " . static::$table . " SET $setString WHERE " . static::$primaryKey . " = ?";
-        $stmt = $db->prepare($sql);
-
-        $values = array_values($data);
-        $values[] = $id;
-
-        return $stmt->execute($values);
+        return static::query()->where(static::$primaryKey, $id)->update($data);
     }
 
     /**
@@ -72,9 +96,6 @@ abstract class Model
      */
     public static function delete(int $id): bool
     {
-        $db = Database::getInstance();
-        $sql = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " = ?";
-        $stmt = $db->prepare($sql);
-        return $stmt->execute([$id]);
+        return static::query()->where(static::$primaryKey, $id)->delete();
     }
 }
