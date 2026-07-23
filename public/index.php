@@ -1,21 +1,24 @@
 <?php
 session_start();
 
+// Setup Native Autoloader
+require_once __DIR__ . '/../src/Core/Autoloader.php';
+
+// Load .env variables
+\App\Core\Env::load(__DIR__ . '/../.env');
+
 // Check for installer
-$configFile = __DIR__ . '/../config/config.php';
-if (!file_exists($configFile) && file_exists(__DIR__ . '/install.php')) {
+$envFile = __DIR__ . '/../.env';
+if (!file_exists($envFile) && file_exists(__DIR__ . '/install.php')) {
     header('Location: /install.php');
     exit;
 }
 
 // Load config
-$config = require_once $configFile;
+$config = require_once __DIR__ . '/../config/config.php';
 
 // Composer Autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
-
-// Setup Native Autoloader
-require_once __DIR__ . '/../src/Core/Autoloader.php';
 
 use App\Core\Router;
 use App\Core\I18n;
