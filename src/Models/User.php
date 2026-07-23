@@ -35,18 +35,31 @@ class User extends Model
     {
         $db = Database::getInstance();
         $stmt = $db->prepare("INSERT INTO remember_tokens (user_id, token, expires_at) VALUES (?, ?, ?)");
-        $stmt->execute([$userId, password_hash($token, PASSWORD_DEFAULT), $expiresAt]);
+        $stmt->execute([$userId, hash('sha256', $token), $expiresAt]);
     }
 
     public static function verifyRememberToken(int $userId, string $token): bool
     {
         $db = Database::getInstance();
+        $hashedToken = hash('sha256', $token);
+
+        // Fast path: Try finding the SHA-256 hashed token directly
+        $stmt = $db->prepare("SELECT id FROM remember_tokens WHERE user_id = ? AND token = ? AND expires_at > NOW()");
+        $stmt->execute([$userId, $hashedToken]);
+        if ($stmt->fetch()) {
+            return true;
+        }
+
+        // Slow path / Upgrade path: Fallback to fetching all tokens for legacy bcrypt hashes
         $stmt = $db->prepare("SELECT * FROM remember_tokens WHERE user_id = ? AND expires_at > NOW()");
         $stmt->execute([$userId]);
         $records = $stmt->fetchAll();
 
         foreach ($records as $record) {
-            if (password_verify($token, $record['token'])) {
+            if (str_starts_with($record['token'], '$2') && password_verify($token, $record['token'])) {
+                // Upgrade token to SHA-256
+                $updateStmt = $db->prepare("UPDATE remember_tokens SET token = ? WHERE id = ?");
+                $updateStmt->execute([$hashedToken, $record['id']]);
                 return true;
             }
         }
