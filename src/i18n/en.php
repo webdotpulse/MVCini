@@ -15,5 +15,15 @@ return [
     'password' => 'Password',
     'files' => 'Files',
     'logout' => 'Logout',
-    'switch_lang' => 'Switch to Spanish'
+    'switch_lang' => 'Switch to Spanish',
+    'contact_us' => 'Contact Us',
+    'name_label' => 'Name:',
+    'email_label' => 'Email:',
+    'message_label' => 'Message:',
+    'solve_captcha' => 'Solve this:',
+    'send_message' => 'Send Message',
+    'incorrect_captcha' => 'Incorrect captcha.',
+    'invalid_email' => 'Invalid email address.',
+    'message_sent' => 'Your message has been sent!',
+    'message_failed' => 'Message could not be sent. Mailer Error: '
 ];

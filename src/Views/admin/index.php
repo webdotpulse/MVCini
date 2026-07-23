@@ -1,5 +1,6 @@
 <div style="float: right;">
     <a href="/admin/create" class="btn" style="background: #28a745;">Create New File</a>
+    <a href="/admin/translations" class="btn" style="background: #17a2b8;">Manage Translations</a>
 </div>
 <h2><?= \App\Core\I18n::get('files') ?></h2>
 

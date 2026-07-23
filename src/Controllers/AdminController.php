@@ -142,4 +142,76 @@ class AdminController extends Controller
         $content = file_get_contents($fullPath);
         $this->render('admin/edit', ['file' => $file, 'content' => $content, 'title' => 'Edit ' . $file]);
     }
+
+    /**
+     * Translations Management
+     */
+    public function translations()
+    {
+        $this->checkAuth();
+
+        $i18nDir = __DIR__ . '/../i18n/';
+        $files = array_diff(scandir($i18nDir), ['.', '..']);
+
+        $languages = [];
+        foreach ($files as $file) {
+            if (str_ends_with($file, '.php')) {
+                $languages[] = str_replace('.php', '', $file);
+            }
+        }
+
+        $this->render('admin/translations', ['languages' => $languages, 'title' => 'Manage Translations']);
+    }
+
+    public function editTranslation($lang = null)
+    {
+        $this->checkAuth();
+
+        if (!$lang) {
+            $this->redirect('/admin/translations');
+        }
+
+        // Sanitize lang to prevent path traversal
+        $lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $lang);
+        $filePath = __DIR__ . "/../i18n/{$lang}.php";
+
+        if (!file_exists($filePath)) {
+            $this->redirect('/admin/translations');
+        }
+
+        $translations = require $filePath;
+        $success = '';
+        $error = '';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->requireCsrf();
+            $keys = $_POST['keys'] ?? [];
+            $values = $_POST['values'] ?? [];
+
+            if (count($keys) === count($values)) {
+                $newTranslations = array_combine($keys, $values);
+
+                // Remove empty keys
+                $newTranslations = array_filter($newTranslations, function($k) { return !empty($k); }, ARRAY_FILTER_USE_KEY);
+
+                $content = "<?php\nreturn " . var_export($newTranslations, true) . ";\n";
+                if (file_put_contents($filePath, $content) !== false) {
+                    $success = 'Translations saved successfully.';
+                    $translations = $newTranslations;
+                } else {
+                    $error = 'Failed to save translations.';
+                }
+            } else {
+                $error = 'Invalid data submitted.';
+            }
+        }
+
+        $this->render('admin/edit_translation', [
+            'lang' => $lang,
+            'translations' => $translations,
+            'title' => 'Edit Translations: ' . strtoupper($lang),
+            'success' => $success,
+            'error' => $error
+        ]);
+    }
 }

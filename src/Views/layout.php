@@ -25,22 +25,23 @@
 <body>
     <div class="container">
         <nav>
-            <a href="/"><?= \App\Core\I18n::get('items') ?></a>
-            <a href="/contact">Contact</a>
+            <a href="/">Home</a>
+            <a href="/item/index"><?= \App\Core\I18n::get('items') ?></a>
+            <a href="/contact"><?= \App\Core\I18n::get('contact_us') ?></a>
 
             <?php if(isset($_SESSION['user_id'])): ?>
                 <?php if($_SESSION['role'] === 'admin'): ?>
                     <a href="/admin"><?= \App\Core\I18n::get('admin') ?></a>
                 <?php endif; ?>
                 <a href="/profile">Profile</a>
-                <a href="/auth/logout">Logout (<?= htmlspecialchars($_SESSION['username']) ?>)</a>
+                <a href="/auth/logout"><?= \App\Core\I18n::get('logout') ?> (<?= htmlspecialchars($_SESSION['username']) ?>)</a>
             <?php else: ?>
-                <a href="/auth/login">Login</a>
+                <a href="/auth/login"><?= \App\Core\I18n::get('login') ?></a>
                 <a href="/auth/register">Register</a>
             <?php endif; ?>
 
             <span style="float: right;">
-                <a href="/item/lang/en">EN</a> | <a href="/item/lang/es">ES</a>
+                <a href="/item/lang/en">EN</a> | <a href="/item/lang/es">ES</a> | <a href="/item/lang/fr">FR</a> | <a href="/item/lang/nl">NL</a>
             </span>
         </nav>
 

@@ -15,5 +15,15 @@ return [
     'password' => 'Contraseña',
     'files' => 'Archivos',
     'logout' => 'Cerrar sesión',
-    'switch_lang' => 'Cambiar a Inglés'
+    'switch_lang' => 'Cambiar a Inglés',
+    'contact_us' => 'Contáctenos',
+    'name_label' => 'Nombre:',
+    'email_label' => 'Correo electrónico:',
+    'message_label' => 'Mensaje:',
+    'solve_captcha' => 'Resuelve esto:',
+    'send_message' => 'Enviar mensaje',
+    'incorrect_captcha' => 'Captcha incorrecto.',
+    'invalid_email' => 'Dirección de correo electrónico no válida.',
+    'message_sent' => '¡Tu mensaje ha sido enviado!',
+    'message_failed' => 'No se pudo enviar el mensaje. Error del remitente: '
 ];
