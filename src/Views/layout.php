@@ -26,17 +26,17 @@
     <div class="container">
         <nav>
             <a href="/">Home</a>
-            <a href="/item/index"><?= \App\Core\I18n::get('items') ?></a>
-            <a href="/contact"><?= \App\Core\I18n::get('contact_us') ?></a>
+            <a href="/item/index"><?= \App\Core\I18n::get('global.items') ?></a>
+            <a href="/contact"><?= \App\Core\I18n::get('global.contact_us') ?></a>
 
             <?php if(isset($_SESSION['user_id'])): ?>
                 <?php if($_SESSION['role'] === 'admin'): ?>
-                    <a href="/admin"><?= \App\Core\I18n::get('admin') ?></a>
+                    <a href="/admin"><?= \App\Core\I18n::get('global.admin') ?></a>
                 <?php endif; ?>
                 <a href="/profile">Profile</a>
-                <a href="/auth/logout"><?= \App\Core\I18n::get('logout') ?> (<?= htmlspecialchars($_SESSION['username']) ?>)</a>
+                <a href="/auth/logout"><?= \App\Core\I18n::get('global.logout') ?> (<?= htmlspecialchars($_SESSION['username']) ?>)</a>
             <?php else: ?>
-                <a href="/auth/login"><?= \App\Core\I18n::get('login') ?></a>
+                <a href="/auth/login"><?= \App\Core\I18n::get('global.login') ?></a>
                 <a href="/auth/register">Register</a>
             <?php endif; ?>
 

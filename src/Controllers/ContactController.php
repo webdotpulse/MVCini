@@ -49,9 +49,9 @@ class ContactController extends Controller
             $captcha = (int)($_POST['captcha'] ?? 0);
 
             if (!isset($_SESSION['captcha_result']) || $captcha !== $_SESSION['captcha_result']) {
-                $error = \App\Core\I18n::get('incorrect_captcha');
+                $error = \App\Core\I18n::get('global.incorrect_captcha');
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $error = \App\Core\I18n::get('invalid_email');
+                $error = \App\Core\I18n::get('global.invalid_email');
             } else {
                 // Use PHPMailer
                 $mail = new PHPMailer(true);
@@ -71,16 +71,17 @@ class ContactController extends Controller
 
                     // Suppress send for demo if SMTP isn't running, but code is ready
                     @$mail->send();
-                    $success = \App\Core\I18n::get('message_sent');
+                    $success = \App\Core\I18n::get('global.message_sent');
                 } catch (Exception $e) {
-                    $error = \App\Core\I18n::get('message_failed') . $mail->ErrorInfo;
+                    $error = \App\Core\I18n::get('global.message_failed') . $mail->ErrorInfo;
                 }
             }
         }
 
         $this->render('contact/index', [
-            'title' => \App\Core\I18n::get('contact_us'),
-            'meta_description' => 'Contact MVCini Framework',
+            'title' => \App\Core\I18n::get('contact.title'),
+            'meta_description' => \App\Core\I18n::get('contact.meta_description'),
+            'meta_keywords' => \App\Core\I18n::get('contact.meta_keywords'),
             'error' => $error,
             'success' => $success
         ]);

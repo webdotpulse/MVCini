@@ -24,6 +24,6 @@
         <textarea name="content" class="form-control" rows="15" style="font-family: monospace; white-space: pre;"></textarea>
     </div>
 
-    <button type="submit" class="btn"><?= \App\Core\I18n::get('save') ?></button>
+    <button type="submit" class="btn"><?= \App\Core\I18n::get('global.save') ?></button>
     <a href="/admin/index" class="btn btn-danger" style="margin-left: 10px;">Cancel</a>
 </form>

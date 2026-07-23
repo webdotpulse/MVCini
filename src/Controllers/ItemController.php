@@ -13,7 +13,12 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::all();
-        $this->render('item/index', ['items' => $items, 'title' => I18n::get('items')]);
+        $this->render('item/index', [
+            'items' => $items,
+            'title' => I18n::get('item.title'),
+            'meta_description' => I18n::get('item.meta_description'),
+            'meta_keywords' => I18n::get('item.meta_keywords')
+        ]);
     }
 
     /**
@@ -31,7 +36,11 @@ class ItemController extends Controller
             $this->redirect('/');
         }
 
-        $this->render('item/create', ['title' => I18n::get('create_item')]);
+        $this->render('item/create', [
+            'title' => I18n::get('global.create_item'),
+            'meta_description' => I18n::get('item.meta_description'),
+            'meta_keywords' => I18n::get('item.meta_keywords')
+        ]);
     }
 
     /**
@@ -58,7 +67,12 @@ class ItemController extends Controller
             $this->redirect('/');
         }
 
-        $this->render('item/edit', ['item' => $item, 'title' => I18n::get('edit_item')]);
+        $this->render('item/edit', [
+            'item' => $item,
+            'title' => I18n::get('global.edit_item'),
+            'meta_description' => I18n::get('item.meta_description'),
+            'meta_keywords' => I18n::get('item.meta_keywords')
+        ]);
     }
 
     /**

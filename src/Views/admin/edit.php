@@ -4,6 +4,6 @@
     <div class="form-group">
         <textarea name="content" class="form-control" rows="25" style="font-family: monospace; white-space: pre;"><?= htmlspecialchars((string)$content) ?></textarea>
     </div>
-    <button type="submit" class="btn"><?= \App\Core\I18n::get('save') ?></button>
+    <button type="submit" class="btn"><?= \App\Core\I18n::get('global.save') ?></button>
     <a href="/admin/index" class="btn btn-danger" style="margin-left: 10px;">Cancel</a>
 </form>

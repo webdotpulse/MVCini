@@ -1,4 +1,4 @@
-<h2>Edit Translations: <?= htmlspecialchars(strtoupper($lang)) ?></h2>
+<h2>Edit Translations: <?= htmlspecialchars(strtoupper($lang)) ?> / <?= htmlspecialchars($domain) ?></h2>
 
 <?php if(!empty($error)): ?>
     <p style="color: red;"><?= htmlspecialchars((string)$error) ?></p>
@@ -8,7 +8,7 @@
     <p style="color: green;"><?= htmlspecialchars((string)$success) ?></p>
 <?php endif; ?>
 
-<form method="POST" action="/admin/editTranslation/<?= urlencode($lang) ?>">
+<form method="POST" action="/admin/editTranslation/<?= urlencode($lang) ?>/<?= urlencode($domain) ?>">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars((string)$csrf_token) ?>">
 
     <table id="translationsTable">
@@ -32,8 +32,8 @@
 
     <button type="button" class="btn" style="background: #28a745; margin-top: 10px;" onclick="addTranslationRow()">Add Key</button>
     <br><br>
-    <button type="submit" class="btn"><?= \App\Core\I18n::get('save') ?></button>
-    <a href="/admin/translations" class="btn" style="background: #6c757d; margin-left: 10px;">Back</a>
+    <button type="submit" class="btn"><?= \App\Core\I18n::get('global.save') ?></button>
+    <a href="/admin/translationsDomains/<?= urlencode($lang) ?>" class="btn" style="background: #6c757d; margin-left: 10px;">Back</a>
 </form>
 
 <script>
