@@ -13,14 +13,18 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($items as $item): ?>
+        <?php
+        $editLabel = \App\Core\I18n::get('global.edit');
+        $deleteLabel = \App\Core\I18n::get('global.delete');
+        foreach ($items as $item):
+        ?>
         <tr>
             <td><?= htmlspecialchars((string)$item['id']) ?></td>
             <td><?= htmlspecialchars((string)$item['name']) ?></td>
             <td><?= htmlspecialchars((string)$item['description']) ?></td>
             <td>
-                <a href="/item/edit/<?= $item['id'] ?>"><?= \App\Core\I18n::get('global.edit') ?></a> |
-                <a href="/item/delete/<?= $item['id'] ?>" onclick="return confirm('Are you sure?');" style="color: #dc3545;"><?= \App\Core\I18n::get('global.delete') ?></a>
+                <a href="/item/edit/<?= $item['id'] ?>"><?= $editLabel ?></a> |
+                <a href="/item/delete/<?= $item['id'] ?>" onclick="return confirm('Are you sure?');" style="color: #dc3545;"><?= $deleteLabel ?></a>
             </td>
         </tr>
         <?php endforeach; ?>
