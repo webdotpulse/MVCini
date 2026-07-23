@@ -1,8 +1,8 @@
 <?php
-session_start();
-
 // Setup Native Autoloader
 require_once __DIR__ . '/../src/Core/Autoloader.php';
+
+\App\Core\Session::start();
 
 // Load .env variables
 \App\Core\Env::load(__DIR__ . '/../.env');

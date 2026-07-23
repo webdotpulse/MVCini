@@ -41,10 +41,10 @@ class AuthController extends Controller
                         } else {
                             // Success
                             User::resetFailedAttempts((int)$user['id']);
-                            session_regenerate_id(true);
-                            $_SESSION['user_id'] = $user['id'];
-                            $_SESSION['username'] = $user['username'];
-                            $_SESSION['role'] = $user['role'];
+                            \App\Core\Session::regenerate(true);
+                            \App\Core\Session::set('user_id', $user['id']);
+                            \App\Core\Session::set('username', $user['username']);
+                            \App\Core\Session::set('role', $user['role']);
 
                             if ($remember) {
                                 $token = bin2hex(random_bytes(32));
@@ -154,12 +154,12 @@ class AuthController extends Controller
 
     public function logout()
     {
-        if (isset($_SESSION['user_id'])) {
-            User::clearRememberTokens($_SESSION['user_id']);
+        if (\App\Core\Session::has('user_id')) {
+            User::clearRememberTokens(\App\Core\Session::get('user_id'));
         }
         setcookie('remember_me', '', time() - 3600, '/');
-        session_unset();
-        session_destroy();
+        \App\Core\Session::unset();
+        \App\Core\Session::destroy();
         $this->redirect('/');
     }
 
@@ -269,15 +269,15 @@ class AuthController extends Controller
      */
     public static function checkRememberMe()
     {
-        if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_me'])) {
+        if (!\App\Core\Session::has('user_id') && isset($_COOKIE['remember_me'])) {
             $payload = Security::getEncryptedCookie('remember_me');
             if ($payload) {
                 list($userId, $token) = explode(':', $payload, 2);
                 $user = User::find((int)$userId);
                 if ($user && User::verifyRememberToken((int)$userId, $token)) {
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['role'] = $user['role'];
+                    \App\Core\Session::set('user_id', $user['id']);
+                    \App\Core\Session::set('username', $user['username']);
+                    \App\Core\Session::set('role', $user['role']);
                 }
             }
         }

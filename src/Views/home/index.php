@@ -13,7 +13,7 @@
             <ul class="list-disc list-inside text-gray-600 space-y-2">
                 <li><a href="/item/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('global.items') ?> (CRUD Demo)</a></li>
                 <li><a href="/contact/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('global.contact_us') ?></a></li>
-                <?php if(isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin'): ?>
+                <?php if(\App\Core\Session::has('user_id') && \App\Core\Session::get('role') === 'admin'): ?>
                     <li><a href="/admin/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('global.admin') ?></a></li>
                 <?php endif; ?>
             </ul>

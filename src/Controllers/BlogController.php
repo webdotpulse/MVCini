@@ -13,7 +13,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $lang = $_SESSION['lang'] ?? 'en';
+        $lang = \App\Core\Session::get('lang', 'en');
         $search = $_GET['q'] ?? '';
         $tagFilter = $_GET['tag'] ?? '';
 
@@ -44,7 +44,7 @@ class BlogController extends Controller
             $this->redirect('/blog');
         }
 
-        $lang = $_SESSION['lang'] ?? 'en';
+        $lang = \App\Core\Session::get('lang', 'en');
         $post = Post::findBySlug($slug, $lang);
 
         if (!$post) {
@@ -65,7 +65,7 @@ class BlogController extends Controller
      */
     private function checkAuth()
     {
-        if (empty($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+        if (empty(\App\Core\Session::get('user_id')) || \App\Core\Session::get('role') !== 'admin') {
             $this->redirect('/auth/login');
         }
     }
