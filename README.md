@@ -43,7 +43,11 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
    Import `database.sql` into your MySQL server to set up the default schema.
 
 4. **Configuration:**
-   Create a configuration file (e.g., `config/config.php`) setting up your database credentials and other settings like `app_secret` and `default_lang`.
+   Copy the example configuration file to create your own configuration:
+   ```bash
+   cp config/config.example.php config/config.php
+   ```
+   Then edit `config/config.php` and set up your database credentials and other settings like `app_secret` and `default_lang`.
 
 ### Running the Application
 
