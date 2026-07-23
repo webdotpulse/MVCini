@@ -14,7 +14,7 @@ class SitemapController extends Controller
         $urls = [
             '/',
             '/admin/login',
-            '/contact' // to be implemented
+            '/contact'
         ];
 
         // Add dynamic URLs, e.g., items
