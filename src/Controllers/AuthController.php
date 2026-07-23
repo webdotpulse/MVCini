@@ -5,6 +5,7 @@ use App\Core\Controller;
 use App\Models\User;
 use App\Core\Security;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class AuthController extends Controller
 {
@@ -150,9 +151,40 @@ class AuthController extends Controller
                     'reset_token_expires' => $expires
                 ]);
 
-                // Mock sending email
-                $resetLink = "http://localhost:8000/auth/reset?token=$token&email=" . urlencode($email);
-                file_put_contents('/tmp/mail.log', "Send reset to: $email\nReset link: $resetLink\n", FILE_APPEND);
+                global $config;
+                $baseUrl = $config['base_url'] ?? 'http://localhost:8000';
+                $resetLink = $baseUrl . "/auth/reset?token=$token&email=" . urlencode($email);
+
+                $mail = new PHPMailer(true);
+                try {
+                    $emailConfig = $config['email'] ?? [];
+
+                    if (!empty($emailConfig['host'])) {
+                        $mail->isSMTP();
+                        $mail->Host       = $emailConfig['host'];
+                        $mail->Port       = $emailConfig['port'] ?? 587;
+
+                        if (!empty($emailConfig['user'])) {
+                            $mail->SMTPAuth   = true;
+                            $mail->Username   = $emailConfig['user'];
+                            $mail->Password   = $emailConfig['pass'];
+                        } else {
+                            $mail->SMTPAuth   = false;
+                        }
+                    }
+
+                    $mail->setFrom($emailConfig['from_address'] ?? 'noreply@example.com', $emailConfig['from_name'] ?? 'MVCini');
+                    $mail->addAddress($email);
+
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Password Reset Request';
+                    $mail->Body    = "You requested a password reset. Click the link below to reset your password:<br><br><a href='{$resetLink}'>{$resetLink}</a>";
+                    $mail->AltBody = "You requested a password reset. Copy and paste the following link into your browser to reset your password:\n\n{$resetLink}";
+
+                    $mail->send();
+                } catch (Exception $e) {
+                    error_log("Failed to send password reset email to $email: {$mail->ErrorInfo}");
+                }
             }
 
             // Always show success to prevent email enumeration
