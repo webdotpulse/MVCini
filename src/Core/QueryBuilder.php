@@ -131,6 +131,60 @@ class QueryBuilder
         return $this->bindings;
     }
 
+    public function count(): int
+    {
+        $db = Database::getInstance();
+
+        $sql = "SELECT COUNT(*) FROM " . $this->table;
+
+        foreach ($this->joins as $join) {
+            $sql .= " {$join['type']} JOIN {$join['table']} ON {$join['first']} {$join['operator']} {$join['second']}";
+        }
+
+        if (!empty($this->wheres)) {
+            $sql .= " WHERE ";
+            foreach ($this->wheres as $i => $where) {
+                if ($i > 0) {
+                    $sql .= " {$where['boolean']} ";
+                }
+                $sql .= "{$where['column']} {$where['operator']} ?";
+            }
+        }
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute($this->bindings);
+        return (int) $stmt->fetchColumn();
+    }
+
+    public function paginate(int $perPage = 10): array
+    {
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $total = $this->count();
+        $totalPages = (int) ceil($total / $perPage);
+
+        // Handle edge case where page > totalPages
+        if ($page > $totalPages && $totalPages > 0) {
+            $page = $totalPages;
+        }
+
+        $offset = ($page - 1) * $perPage;
+
+        $this->limit($perPage, $offset);
+        $data = $this->get();
+
+        return [
+            'data' => $data,
+            'current_page' => $page,
+            'total_pages' => $totalPages,
+            'per_page' => $perPage,
+            'total' => $total
+        ];
+    }
+
     public function get(): array
     {
         $db = Database::getInstance();

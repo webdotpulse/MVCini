@@ -68,6 +68,14 @@ abstract class Model
     }
 
     /**
+     * Get paginated records
+     */
+    public static function paginate(int $perPage = 10): array
+    {
+        return static::query()->paginate($perPage);
+    }
+
+    /**
      * Find a record by primary key
      */
     public static function find(int $id): ?array

@@ -18,6 +18,7 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
 - **Authentication System:** Boilerplate views and controllers for Login, Registration, Password Reset.
 - **Interactive Installer:** An automatic installer that sets up the database, imports schema, generates configuration, and securely deletes itself on first run.
 - **Form Validation:** A robust `FormValidation` helper class to validate request data easily within controllers.
+- **Pagination:** Integrated database pagination returning records and metadata, along with a Tailwind-compatible View helper.
 
 ## Manual
 
