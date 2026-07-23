@@ -19,6 +19,7 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
 - **Interactive Installer:** An automatic installer that sets up the database, imports schema, generates configuration, and securely deletes itself on first run.
 - **Form Validation:** A robust `FormValidation` helper class to validate request data easily within controllers.
 - **Pagination:** Integrated database pagination returning records and metadata, along with a Tailwind-compatible View helper.
+- **Logging System:** Basic Logging system that writes messages to daily rotating files in a `storage/logs/` directory, supporting standard log levels (e.g., info, warning, error, debug).
 
 ## Manual
 
