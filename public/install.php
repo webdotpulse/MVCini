@@ -5,6 +5,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['db_user'] ?? 'root';
     $pass = $_POST['db_pass'] ?? '';
 
+    $email_host = $_POST['email_host'] ?? 'smtp.example.com';
+    $email_port = $_POST['email_port'] ?? '587';
+    $email_user = $_POST['email_user'] ?? '';
+    $email_pass = $_POST['email_pass'] ?? '';
+    $email_from_address = $_POST['email_from_address'] ?? 'noreply@example.com';
+    $email_from_name = $_POST['email_from_name'] ?? 'MVCini';
+
     $error = null;
     try {
         // Connect without database to create it if it doesn't exist
@@ -43,6 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "        'charset' => 'utf8mb4',\n" .
             "        'user' => '" . addslashes($user) . "',\n" .
             "        'pass' => '" . addslashes($pass) . "',\n" .
+            "    ],\n" .
+            "    'email' => [\n" .
+            "        'host' => '" . addslashes($email_host) . "',\n" .
+            "        'port' => '" . addslashes($email_port) . "',\n" .
+            "        'user' => '" . addslashes($email_user) . "',\n" .
+            "        'pass' => '" . addslashes($email_pass) . "',\n" .
+            "        'from_address' => '" . addslashes($email_from_address) . "',\n" .
+            "        'from_name' => '" . addslashes($email_from_name) . "',\n" .
             "    ],\n" .
             "    'default_lang' => 'en',\n" .
             "    'app_secret' => '" . addslashes($appSecret) . "',\n" .
@@ -102,6 +117,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="mb-6">
                 <label for="db_pass" class="block text-gray-700 text-sm font-bold mb-2">Database Password</label>
                 <input type="password" id="db_pass" name="db_pass" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <h2 class="text-xl font-bold mb-4 mt-6 text-gray-800">Email Settings</h2>
+
+            <div class="mb-4">
+                <label for="email_host" class="block text-gray-700 text-sm font-bold mb-2">SMTP Host</label>
+                <input type="text" id="email_host" name="email_host" value="<?= htmlspecialchars($_POST['email_host'] ?? 'smtp.example.com') ?>" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="email_port" class="block text-gray-700 text-sm font-bold mb-2">SMTP Port</label>
+                <input type="text" id="email_port" name="email_port" value="<?= htmlspecialchars($_POST['email_port'] ?? '587') ?>" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="email_user" class="block text-gray-700 text-sm font-bold mb-2">SMTP User</label>
+                <input type="text" id="email_user" name="email_user" value="<?= htmlspecialchars($_POST['email_user'] ?? '') ?>" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <div class="mb-4">
+                <label for="email_pass" class="block text-gray-700 text-sm font-bold mb-2">SMTP Password</label>
+                <input type="password" id="email_pass" name="email_pass" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <div class="mb-4">
+                <label for="email_from_address" class="block text-gray-700 text-sm font-bold mb-2">From Address</label>
+                <input type="text" id="email_from_address" name="email_from_address" value="<?= htmlspecialchars($_POST['email_from_address'] ?? 'noreply@example.com') ?>" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="email_from_name" class="block text-gray-700 text-sm font-bold mb-2">From Name</label>
+                <input type="text" id="email_from_name" name="email_from_name" value="<?= htmlspecialchars($_POST['email_from_name'] ?? 'MVCini') ?>" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
             </div>
 
             <div class="flex items-center justify-between">
