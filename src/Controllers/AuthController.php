@@ -92,9 +92,40 @@ class AuthController extends Controller
                     'verification_token' => $token
                 ]);
 
-                // Mock sending email
-                $verifyLink = "http://localhost:8000/auth/verify?token=$token&email=" . urlencode($email);
-                file_put_contents('/tmp/mail.log', "Send to: $email\nVerify link: $verifyLink\n", FILE_APPEND);
+                global $config;
+                $baseUrl = $config['base_url'] ?? 'http://localhost:8000';
+                $verifyLink = $baseUrl . "/auth/verify?token=$token&email=" . urlencode($email);
+
+                $mail = new PHPMailer(true);
+                try {
+                    $emailConfig = $config['email'] ?? [];
+
+                    if (!empty($emailConfig['host'])) {
+                        $mail->isSMTP();
+                        $mail->Host       = $emailConfig['host'];
+                        $mail->Port       = $emailConfig['port'] ?? 587;
+
+                        if (!empty($emailConfig['user'])) {
+                            $mail->SMTPAuth   = true;
+                            $mail->Username   = $emailConfig['user'];
+                            $mail->Password   = $emailConfig['pass'];
+                        } else {
+                            $mail->SMTPAuth   = false;
+                        }
+                    }
+
+                    $mail->setFrom($emailConfig['from_address'] ?? 'noreply@example.com', $emailConfig['from_name'] ?? 'MVCini');
+                    $mail->addAddress($email);
+
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Verify Your Account';
+                    $mail->Body    = "Thank you for registering. Please click the link below to verify your account:<br><br><a href='{$verifyLink}'>{$verifyLink}</a>";
+                    $mail->AltBody = "Thank you for registering. Copy and paste the following link into your browser to verify your account:\n\n{$verifyLink}";
+
+                    $mail->send();
+                } catch (Exception $e) {
+                    error_log("Failed to send verification email to $email: {$mail->ErrorInfo}");
+                }
 
                 $success = 'Registration successful! Please check your email to verify your account.';
             }
