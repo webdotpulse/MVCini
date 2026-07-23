@@ -19,7 +19,7 @@ class I18n
             $_SESSION['lang'] = self::$lang;
         }
 
-        self::loadTranslations(self::$lang);
+        self::$translations = [];
     }
 
     /**
@@ -29,20 +29,24 @@ class I18n
     {
         self::$lang = $lang;
         $_SESSION['lang'] = $lang;
-        self::loadTranslations($lang);
+        self::$translations = [];
     }
 
     /**
-     * Load translation file
+     * Load translation domain file
      */
-    private static function loadTranslations(string $lang)
+    private static function loadDomain(string $domain)
     {
-        $file = __DIR__ . '/../i18n/' . $lang . '.php';
+        if (isset(self::$translations[$domain])) {
+            return;
+        }
+
+        $file = __DIR__ . '/../i18n/' . self::$lang . '/' . $domain . '.php';
         if (file_exists($file)) {
-            self::$translations = require $file;
+            self::$translations[$domain] = require $file;
         } else {
-            // Fallback to empty translations or default
-            self::$translations = [];
+            // Fallback to empty translations for this domain
+            self::$translations[$domain] = [];
         }
     }
 
@@ -51,6 +55,15 @@ class I18n
      */
     public static function get(string $key): string
     {
-        return self::$translations[$key] ?? $key;
+        $domain = 'global';
+        $translationKey = $key;
+
+        if (strpos($key, '.') !== false) {
+            list($domain, $translationKey) = explode('.', $key, 2);
+        }
+
+        self::loadDomain($domain);
+
+        return self::$translations[$domain][$translationKey] ?? $key;
     }
 }

@@ -4,7 +4,7 @@
     <?php foreach ($languages as $lang): ?>
         <li>
             <strong><?= htmlspecialchars(strtoupper($lang)) ?></strong>
-            <a href="/admin/editTranslation/<?= urlencode($lang) ?>">[<?= \App\Core\I18n::get('edit') ?>]</a>
+            <a href="/admin/translationsDomains/<?= urlencode($lang) ?>">[Manage Domains]</a>
         </li>
     <?php endforeach; ?>
 </ul>

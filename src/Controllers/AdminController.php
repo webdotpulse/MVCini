@@ -42,7 +42,12 @@ class AdminController extends Controller
             }
         }
 
-        $this->render('admin/index', ['filesList' => $filesList, 'title' => I18n::get('admin')]);
+        $this->render('admin/index', [
+            'filesList' => $filesList,
+            'title' => I18n::get('admin.title'),
+            'meta_description' => I18n::get('admin.meta_description'),
+            'meta_keywords' => I18n::get('admin.meta_keywords')
+        ]);
     }
 
     /**
@@ -151,19 +156,19 @@ class AdminController extends Controller
         $this->checkAuth();
 
         $i18nDir = __DIR__ . '/../i18n/';
-        $files = array_diff(scandir($i18nDir), ['.', '..']);
+        $dirs = array_diff(scandir($i18nDir), ['.', '..']);
 
         $languages = [];
-        foreach ($files as $file) {
-            if (str_ends_with($file, '.php')) {
-                $languages[] = str_replace('.php', '', $file);
+        foreach ($dirs as $dir) {
+            if (is_dir($i18nDir . $dir)) {
+                $languages[] = $dir;
             }
         }
 
         $this->render('admin/translations', ['languages' => $languages, 'title' => 'Manage Translations']);
     }
 
-    public function editTranslation($lang = null)
+    public function translationsDomains($lang = null)
     {
         $this->checkAuth();
 
@@ -173,7 +178,35 @@ class AdminController extends Controller
 
         // Sanitize lang to prevent path traversal
         $lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $lang);
-        $filePath = __DIR__ . "/../i18n/{$lang}.php";
+        $langDir = __DIR__ . "/../i18n/{$lang}/";
+
+        if (!is_dir($langDir)) {
+            $this->redirect('/admin/translations');
+        }
+
+        $files = array_diff(scandir($langDir), ['.', '..']);
+        $domains = [];
+        foreach ($files as $file) {
+            if (str_ends_with($file, '.php')) {
+                $domains[] = str_replace('.php', '', $file);
+            }
+        }
+
+        $this->render('admin/translations_domains', ['lang' => $lang, 'domains' => $domains, 'title' => 'Manage Domains: ' . strtoupper($lang)]);
+    }
+
+    public function editTranslation($lang = null, $domain = null)
+    {
+        $this->checkAuth();
+
+        if (!$lang || !$domain) {
+            $this->redirect('/admin/translations');
+        }
+
+        // Sanitize lang and domain to prevent path traversal
+        $lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $lang);
+        $domain = preg_replace('/[^a-zA-Z0-9_-]/', '', $domain);
+        $filePath = __DIR__ . "/../i18n/{$lang}/{$domain}.php";
 
         if (!file_exists($filePath)) {
             $this->redirect('/admin/translations');
@@ -208,8 +241,9 @@ class AdminController extends Controller
 
         $this->render('admin/edit_translation', [
             'lang' => $lang,
+            'domain' => $domain,
             'translations' => $translations,
-            'title' => 'Edit Translations: ' . strtoupper($lang),
+            'title' => 'Edit Translations: ' . strtoupper($lang) . ' / ' . $domain,
             'success' => $success,
             'error' => $error
         ]);

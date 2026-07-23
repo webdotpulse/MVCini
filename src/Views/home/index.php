@@ -3,7 +3,7 @@
 
 <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto mt-10">
     <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800 mb-4"><?= \App\Core\I18n::get('welcome') ?></h1>
+        <h1 class="text-4xl font-bold text-gray-800 mb-4"><?= \App\Core\I18n::get('global.welcome') ?></h1>
         <p class="text-gray-600 text-lg">A custom, lightweight MVC framework built with native PHP 8 and MySQL.</p>
     </div>
 
@@ -11,10 +11,10 @@
         <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
             <h2 class="text-2xl font-semibold text-gray-800 mb-3">Explore Features</h2>
             <ul class="list-disc list-inside text-gray-600 space-y-2">
-                <li><a href="/item/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('items') ?> (CRUD Demo)</a></li>
-                <li><a href="/contact/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('contact_us') ?></a></li>
+                <li><a href="/item/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('global.items') ?> (CRUD Demo)</a></li>
+                <li><a href="/contact/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('global.contact_us') ?></a></li>
                 <?php if(isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin'): ?>
-                    <li><a href="/admin/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('admin') ?></a></li>
+                    <li><a href="/admin/index" class="text-blue-600 hover:underline"><?= \App\Core\I18n::get('global.admin') ?></a></li>
                 <?php endif; ?>
             </ul>
         </div>

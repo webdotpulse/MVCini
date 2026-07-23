@@ -1,4 +1,4 @@
-<a href="/item/create" class="btn"><?= \App\Core\I18n::get('create_item') ?></a>
+<a href="/item/create" class="btn"><?= \App\Core\I18n::get('global.create_item') ?></a>
 <button id="loadAjax" class="btn" style="background: #28a745; margin-left: 10px;">Test AJAX API</button>
 
 <div id="ajaxResult" class="ajax-result"></div>
@@ -7,8 +7,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th><?= \App\Core\I18n::get('name') ?></th>
-            <th><?= \App\Core\I18n::get('description') ?></th>
+            <th><?= \App\Core\I18n::get('global.name') ?></th>
+            <th><?= \App\Core\I18n::get('global.description') ?></th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -19,8 +19,8 @@
             <td><?= htmlspecialchars((string)$item['name']) ?></td>
             <td><?= htmlspecialchars((string)$item['description']) ?></td>
             <td>
-                <a href="/item/edit/<?= $item['id'] ?>"><?= \App\Core\I18n::get('edit') ?></a> |
-                <a href="/item/delete/<?= $item['id'] ?>" onclick="return confirm('Are you sure?');" style="color: #dc3545;"><?= \App\Core\I18n::get('delete') ?></a>
+                <a href="/item/edit/<?= $item['id'] ?>"><?= \App\Core\I18n::get('global.edit') ?></a> |
+                <a href="/item/delete/<?= $item['id'] ?>" onclick="return confirm('Are you sure?');" style="color: #dc3545;"><?= \App\Core\I18n::get('global.delete') ?></a>
             </td>
         </tr>
         <?php endforeach; ?>
