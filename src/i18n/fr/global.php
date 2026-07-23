@@ -29,4 +29,7 @@ return array (
   'title' => 'Application MVCini',
   'meta_description' => 'Un framework MVC simple en PHP',
   'meta_keywords' => 'mvc, php, framework',
+  'blog' => 'Blog',
+  'tools' => 'Outils',
+  'blog_admin' => 'Administration du blog',
 );
