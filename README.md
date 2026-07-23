@@ -17,6 +17,7 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
 - **Autoloading:** Native PSR-4 autoloader for core files and integration with Composer for third-party libraries.
 - **Authentication System:** Boilerplate views and controllers for Login, Registration, Password Reset.
 - **Interactive Installer:** An automatic installer that sets up the database, imports schema, generates configuration, and securely deletes itself on first run.
+- **Form Validation:** A robust `FormValidation` helper class to validate request data easily within controllers.
 
 ## Manual
 
@@ -64,3 +65,31 @@ Then open `http://localhost:8000` in your browser.
 
 #### Apache Setup
 You can host the project on an Apache server. An `.htaccess` file in the root directory will automatically forward requests to the `public/` folder. Ensure that `mod_rewrite` is enabled.
+
+### Form Validation Example
+
+You can use the `App\Core\FormValidation` helper class to easily validate POST or GET data within your controllers.
+
+```php
+use App\Core\FormValidation;
+
+$data = $_POST;
+$rules = [
+    'username' => 'required|alphanumeric|min:3|max:20',
+    'email'    => 'required|email',
+    'password' => 'required|min:6',
+    'password_confirm' => 'required|match:password',
+    'age'      => 'numeric|min:18'
+];
+
+$validator = FormValidation::validate($data, $rules);
+
+if ($validator->fails()) {
+    // Pass errors to the view
+    $errors = $validator->errors();
+    // Or get a single error: $validator->first('username')
+    $this->render('register', ['errors' => $errors]);
+} else {
+    // Validation passed, proceed with registration
+}
+```
