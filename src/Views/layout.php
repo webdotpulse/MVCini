@@ -31,13 +31,13 @@
             <a href="/item/index"><?= \App\Core\I18n::get('global.items') ?></a>
             <a href="/contact"><?= \App\Core\I18n::get('global.contact_us') ?></a>
 
-            <?php if(isset($_SESSION['user_id'])): ?>
-                <?php if($_SESSION['role'] === 'admin'): ?>
+            <?php if(\App\Core\Session::has('user_id')): ?>
+                <?php if(\App\Core\Session::get('role') === 'admin'): ?>
                     <a href="/admin"><?= \App\Core\I18n::get('global.admin') ?></a>
                     <a href="/blog/admin"><?= \App\Core\I18n::get('global.blog_admin') ?? 'Blog Admin' ?></a>
                 <?php endif; ?>
                 <a href="/profile">Profile</a>
-                <a href="/auth/logout"><?= \App\Core\I18n::get('global.logout') ?> (<?= htmlspecialchars($_SESSION['username']) ?>)</a>
+                <a href="/auth/logout"><?= \App\Core\I18n::get('global.logout') ?> (<?= htmlspecialchars(\App\Core\Session::get('username')) ?>)</a>
             <?php else: ?>
                 <a href="/auth/login"><?= \App\Core\I18n::get('global.login') ?></a>
                 <a href="/auth/register">Register</a>

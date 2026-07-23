@@ -12,7 +12,7 @@ class AdminController extends Controller
      */
     private function checkAuth()
     {
-        if (empty($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+        if (empty(\App\Core\Session::get('user_id')) || \App\Core\Session::get('role') !== 'admin') {
             $this->redirect('/auth/login');
         }
     }

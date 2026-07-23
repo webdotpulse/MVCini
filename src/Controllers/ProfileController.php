@@ -8,7 +8,7 @@ class ProfileController extends Controller
 {
     private function checkAuth()
     {
-        if (empty($_SESSION['user_id'])) {
+        if (empty(\App\Core\Session::get('user_id'))) {
             $this->redirect('/auth/login');
         }
     }
@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function index()
     {
         $this->checkAuth();
-        $user = User::find($_SESSION['user_id']);
+        $user = User::find(\App\Core\Session::get('user_id'));
 
         $error = '';
         $success = '';

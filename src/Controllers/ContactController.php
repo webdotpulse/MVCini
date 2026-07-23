@@ -14,7 +14,7 @@ class ContactController extends Controller
     {
         $num1 = rand(1, 10);
         $num2 = rand(1, 10);
-        $_SESSION['captcha_result'] = $num1 + $num2;
+        \App\Core\Session::set('captcha_result', $num1 + $num2);
 
         // Create an image
         $image = imagecreatetruecolor(100, 40);
@@ -48,7 +48,7 @@ class ContactController extends Controller
             $message = $_POST['message'] ?? '';
             $captcha = (int)($_POST['captcha'] ?? 0);
 
-            if (!isset($_SESSION['captcha_result']) || $captcha !== $_SESSION['captcha_result']) {
+            if (!\App\Core\Session::has('captcha_result') || $captcha !== \App\Core\Session::get('captcha_result')) {
                 $error = \App\Core\I18n::get('global.incorrect_captcha');
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = \App\Core\I18n::get('global.invalid_email');

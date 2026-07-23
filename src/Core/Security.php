@@ -8,10 +8,10 @@ class Security
      */
     public static function csrfToken(): string
     {
-        if (empty($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        if (empty(\App\Core\Session::get('csrf_token'))) {
+            \App\Core\Session::set('csrf_token', bin2hex(random_bytes(32)));
         }
-        return $_SESSION['csrf_token'];
+        return \App\Core\Session::get('csrf_token');
     }
 
     /**
@@ -21,7 +21,7 @@ class Security
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $token = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
-            if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
+            if (empty(\App\Core\Session::get('csrf_token')) || !hash_equals(\App\Core\Session::get('csrf_token'), $token)) {
                 return false;
             }
         }
@@ -80,14 +80,14 @@ class Security
     {
         $fingerprint = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 
-        if (isset($_SESSION['session_fingerprint'])) {
-            if ($_SESSION['session_fingerprint'] !== $fingerprint) {
-                session_unset();
-                session_destroy();
-                session_start();
+        if (\App\Core\Session::has('session_fingerprint')) {
+            if (\App\Core\Session::get('session_fingerprint') !== $fingerprint) {
+                \App\Core\Session::unset();
+                \App\Core\Session::destroy();
+                \App\Core\Session::start();
             }
         } else {
-            $_SESSION['session_fingerprint'] = $fingerprint;
+            \App\Core\Session::set('session_fingerprint', $fingerprint);
         }
     }
 }

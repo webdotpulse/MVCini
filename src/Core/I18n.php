@@ -12,11 +12,11 @@ class I18n
     public static function init(string $lang = 'en')
     {
         // Check session for language preference
-        if (isset($_SESSION['lang'])) {
-            self::$lang = $_SESSION['lang'];
+        if (\App\Core\Session::has('lang')) {
+            self::$lang = \App\Core\Session::get('lang');
         } else {
             self::$lang = $lang;
-            $_SESSION['lang'] = self::$lang;
+            \App\Core\Session::set('lang', self::$lang);
         }
 
         self::$translations = [];
@@ -28,7 +28,7 @@ class I18n
     public static function setLang(string $lang)
     {
         self::$lang = $lang;
-        $_SESSION['lang'] = $lang;
+        \App\Core\Session::set('lang', $lang);
         self::$translations = [];
     }
 
