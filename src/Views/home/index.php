@@ -23,10 +23,10 @@
             <h2 class="text-2xl font-semibold text-gray-800 mb-3">Language Options</h2>
             <p class="text-gray-600 mb-4">Switch the application language below:</p>
             <div class="flex flex-wrap gap-3">
-                <a href="/item/lang/en" class="px-4 py-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors">English</a>
-                <a href="/item/lang/es" class="px-4 py-2 bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors">Español</a>
-                <a href="/item/lang/fr" class="px-4 py-2 bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors">Français</a>
-                <a href="/item/lang/nl" class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200 transition-colors">Nederlands</a>
+                <a href="/lang/en" class="px-4 py-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors">English</a>
+                <a href="/lang/es" class="px-4 py-2 bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors">Español</a>
+                <a href="/lang/fr" class="px-4 py-2 bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors">Français</a>
+                <a href="/lang/nl" class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200 transition-colors">Nederlands</a>
             </div>
         </div>
     </div>
