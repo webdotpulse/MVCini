@@ -26,14 +26,6 @@ This document outlines several proposals for improving the MVCini framework. Eac
 **Description:** The project currently lacks automated tests. Setting up PHPUnit and creating base test cases for Controllers and Models would encourage test-driven development and improve framework stability.
 **Prompt:** `Set up an automated testing suite using PHPUnit. Configure phpunit.xml, create a tests/ directory, and write a base TestCase class. Add at least two example tests: one for the Router dispatching and one for Model CRUD operations using an in-memory SQLite database or a test MySQL database.`
 
-## 7. Session Management Wrapper
-**Description:** Session handling is currently done directly via the `$_SESSION` superglobal. A dedicated wrapper class would provide a more object-oriented way to manage session data (get, set, delete, destroy) and flash messages.
-**Prompt:** `Create a Session management wrapper class in the Core directory to abstract away direct usage of $_SESSION. Include support for flash messages (data that only lasts for one request) to easily display success or error notifications to users.`
-
-## 8. File Upload Helper
-**Description:** Handling file uploads securely and cleanly can be tedious. A dedicated helper class would simplify validating file types, checking sizes, and safely moving uploaded files to a destination directory.
-**Prompt:** `Implement a FileUpload helper class to streamline the process of handling $_FILES. It should include methods for validating file extensions, MIME types, and maximum file sizes, as well as securely moving the file to a specified directory and generating unique filenames.`
-
 ## 9. Caching System
 **Description:** The framework currently lacks a built-in caching mechanism. Implementing a simple file-based or Memcached/Redis caching system would significantly improve application performance for expensive database queries or rendered views.
 **Prompt:** `Build a simple Caching system. Start with a file-based cache driver that allows storing, retrieving, and deleting key-value pairs with an expiration time. Create an interface so other drivers (like Redis) can be easily added later.`
@@ -41,7 +33,3 @@ This document outlines several proposals for improving the MVCini framework. Eac
 ## 10. Event Dispatcher
 **Description:** Implementing an event-driven architecture allows components to communicate without being tightly coupled. An Event Dispatcher would let the application fire events and listeners to react to them (e.g., sending a welcome email when a UserRegistered event occurs).
 **Prompt:** `Create a lightweight Event Dispatcher. It should support registering event listeners (callbacks or classes) to specific event names and a dispatch method to trigger those events and pass relevant data to the listeners.`
-
-## 11. Logging System
-**Description:** Debugging and monitoring would be easier with a unified logging system instead of relying on default PHP error logs. A PSR-3 compliant logger or a simple custom logger would help track application flow and errors.
-**Prompt:** `Implement a basic Logging system that writes messages to a rotating file in a storage/logs directory. Support standard log levels (e.g., info, warning, error, debug) and ensure messages are formatted consistently with timestamps.`

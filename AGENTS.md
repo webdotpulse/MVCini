@@ -7,6 +7,7 @@
 - The project utilizes a custom native PSR-4 autoloader for core application files alongside Composer for managing external third-party libraries.
 - Use strictly native PHP code to avoid external framework dependencies, except for specifically requested libraries.
 - All database interactions must exclusively use PDO.
+- Take into account existing functions and classes like pagination, upload, form validation, logger, and session to avoid writing duplicate code.
 
 ## Documentation Management
 
