@@ -1,5 +1,11 @@
 <?php
 return array (
+  'faq' => 'FAQ',
+  'knowledgebase' => 'Knowledge Base',
+  'downloads' => 'Downloads',
+  'products' => 'Products',
+  'jobs' => 'Jobs',
+  'about' => 'About',
   'welcome' => 'Welcome to MVCini',
   'items' => 'Items',
   'create_item' => 'Create Item',
@@ -32,4 +38,9 @@ return array (
   'blog' => 'Blog',
   'tools' => 'Tools',
   'blog_admin' => 'Blog Admin',
+  'products_admin' => 'Products Admin',
+  'downloads_admin' => 'Downloads Admin',
+  'faq_admin' => 'FAQ Admin',
+  'kb_admin' => 'KB Admin',
+  'jobs_admin' => 'Jobs Admin',
 );

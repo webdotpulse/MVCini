@@ -50,10 +50,23 @@
                         <a href="/item/index" class="nav-link"><?= \App\Core\I18n::get('global.items') ?></a>
                         <a href="/contact" class="nav-link"><?= \App\Core\I18n::get('global.contact_us') ?></a>
 
+                        <!-- New Links -->
+                        <a href="/products" class="nav-link"><?= \App\Core\I18n::get('global.products') ?? 'Products' ?></a>
+                        <a href="/downloads" class="nav-link"><?= \App\Core\I18n::get('global.downloads') ?? 'Downloads' ?></a>
+                        <a href="/faq" class="nav-link"><?= \App\Core\I18n::get('global.faq') ?? 'FAQ' ?></a>
+                        <a href="/knowledgebase" class="nav-link"><?= \App\Core\I18n::get('global.knowledgebase') ?? 'Knowledge Base' ?></a>
+                        <a href="/jobs" class="nav-link"><?= \App\Core\I18n::get('global.jobs') ?? 'Jobs' ?></a>
+                        <a href="/about" class="nav-link"><?= \App\Core\I18n::get('global.about') ?? 'About' ?></a>
+
                         <?php if(\App\Core\Session::has('user_id') && \App\Core\Session::get('role') === 'admin'): ?>
                             <div class="h-4 w-px bg-gray-300 mx-2"></div>
                             <a href="/admin" class="nav-link"><?= \App\Core\I18n::get('global.admin') ?></a>
                             <a href="/blog/admin" class="nav-link"><?= \App\Core\I18n::get('global.blog_admin') ?? 'Blog Admin' ?></a>
+                            <a href="/products/admin" class="nav-link"><?= \App\Core\I18n::get('global.products_admin') ?? 'Products Admin' ?></a>
+                            <a href="/downloads/admin" class="nav-link"><?= \App\Core\I18n::get('global.downloads_admin') ?? 'Downloads Admin' ?></a>
+                            <a href="/faq/admin" class="nav-link"><?= \App\Core\I18n::get('global.faq_admin') ?? 'FAQ Admin' ?></a>
+                            <a href="/knowledgebase/admin" class="nav-link"><?= \App\Core\I18n::get('global.kb_admin') ?? 'KB Admin' ?></a>
+                            <a href="/jobs/admin" class="nav-link"><?= \App\Core\I18n::get('global.jobs_admin') ?? 'Jobs Admin' ?></a>
                         <?php endif; ?>
                     </nav>
                 </div>

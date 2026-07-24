@@ -43,6 +43,10 @@ class Router
 
             if (is_callable([$controller, $methodName])) {
                 call_user_func_array([$controller, $methodName], $params);
+            } else if (method_exists($controller, 'index') && !empty($parts[1])) {
+                // Fallback to index method and treat $parts[1] as a parameter
+                array_unshift($params, $parts[1]);
+                call_user_func_array([$controller, 'index'], $params);
             } else {
                 $this->sendNotFound();
             }

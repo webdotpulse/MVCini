@@ -14,3 +14,6 @@
 - **CRITICAL:** Every time a new feature is added, or an existing feature is modified or removed, you **must** update `README.md` automatically to reflect these changes.
 - Maintain the "Features" overview and "Manual" instructions in `README.md` to ensure they are always up-to-date and accurately describe the current state of the application.
 - **CRITICAL:** The interactive installer (`public/install.php`) must be updated in case breaking changes are made (e.g. database schema changes, new configuration options).
+
+## Translations
+- Every time a new page or feature is created, ensure that appropriate translations are added to the relevant i18n files (e.g., `src/i18n/{lang}/global.php` or a domain-specific file). Avoid hardcoding text in views where a translation makes sense.

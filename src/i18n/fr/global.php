@@ -1,5 +1,11 @@
 <?php
 return array (
+  'faq' => 'FAQ',
+  'knowledgebase' => 'Base de Connaissances',
+  'downloads' => 'Téléchargements',
+  'products' => 'Produits',
+  'jobs' => 'Emplois',
+  'about' => 'À propos',
   'welcome' => 'Bienvenue sur MVCini',
   'items' => 'Articles',
   'create_item' => 'Créer un article',
@@ -32,4 +38,9 @@ return array (
   'blog' => 'Blog',
   'tools' => 'Outils',
   'blog_admin' => 'Administration du blog',
+  'products_admin' => 'Admin de Produits',
+  'downloads_admin' => 'Admin de Téléchargements',
+  'faq_admin' => 'Admin de FAQ',
+  'kb_admin' => 'Admin de Base de Connaissances',
+  'jobs_admin' => 'Admin d\'Emplois',
 );

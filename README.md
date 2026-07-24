@@ -16,6 +16,13 @@ It uses strictly native PHP code to avoid external framework dependencies (excep
 - **Modern UI:** Tailwind CSS is used on the demo home page for rapid UI prototyping.
 - **Autoloading:** Native PSR-4 autoloader for core files and integration with Composer for third-party libraries.
 - **Authentication System:** Boilerplate views and controllers for Login, Registration, Password Reset.
+- **Built-in CMS Features:** Includes fully functional, translatable pages and administrative CRUD sections for:
+  - FAQ
+  - Knowledge Base
+  - Downloads
+  - Products
+  - Jobs
+  - About Us
 - **Interactive Installer:** An automatic installer that sets up the database, imports schema, generates configuration, and securely deletes itself on first run.
 - **Form Validation:** A robust `FormValidation` helper class to validate request data easily within controllers.
 - **Pagination:** Integrated database pagination returning records and metadata, along with a Tailwind-compatible View helper.
