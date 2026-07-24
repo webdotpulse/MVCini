@@ -95,14 +95,4 @@ class ItemController extends Controller
         $this->jsonResponse(['status' => 'success', 'data' => $items]);
     }
 
-    /**
-     * Switch Language
-     */
-    public function lang($lang = 'en')
-    {
-        I18n::setLang($lang);
-        // Redirect back to previous page
-        $referer = $_SERVER['HTTP_REFERER'] ?? '/';
-        $this->redirect($referer);
-    }
 }
